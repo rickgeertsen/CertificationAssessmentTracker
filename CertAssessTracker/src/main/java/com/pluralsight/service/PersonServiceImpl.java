@@ -1,6 +1,7 @@
 package com.pluralsight.service;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.pluralsight.model.Person;
 import com.pluralsight.model.PersonReport;
 import com.pluralsight.repository.PersonRepository;
+import com.pluralsight.utils.ComparatorSort;
 
 @Service("personService")
 public class PersonServiceImpl implements PersonService {
@@ -43,6 +45,14 @@ public class PersonServiceImpl implements PersonService {
 		    personReportAll.addAll(personReportAssess);
 		}
 		
+		// If > 1 entry then sort it using a comparator sort.  It is
+		// sorted by last name, first name, middle name, type, Certification
+		// or Assessment name, category of Certification or Assessment
+		if (personReportAll != null && personReportAll.size() > 1) {
+			ComparatorSort comparatorSort = new ComparatorSort();
+			Collections.sort(personReportAll, comparatorSort);
+		}
+		
 		return personReportAll;	
 	}
 
@@ -51,6 +61,14 @@ public class PersonServiceImpl implements PersonService {
 		
 		personReportCerts = personRepository.findAllCertificationPersonReports();
 		
+		// If > 1 entry then sort it using a comparator sort.  It is
+		// sorted by last name, first name, middle name, type, Certification
+		// or Assessment name, category of Certification or Assessment
+		if (personReportCerts != null && personReportCerts.size() > 1) {
+			ComparatorSort comparatorSort = new ComparatorSort();
+			Collections.sort(personReportCerts, comparatorSort);
+		}
+		
 		return personReportCerts;	
 	}
 
@@ -58,6 +76,14 @@ public class PersonServiceImpl implements PersonService {
 		List<PersonReport> personReportAssess = null;
 		
 		personReportAssess = personRepository.findAllAssessmentPersonReports();
+		
+		// If > 1 entry then sort it using a comparator sort.  It is
+		// sorted by last name, first name, middle name, type, Certification
+		// or Assessment name, category of Certification or Assessment
+		if (personReportAssess != null && personReportAssess.size() > 1) {
+			ComparatorSort comparatorSort = new ComparatorSort();
+			Collections.sort(personReportAssess, comparatorSort);
+		}
 		
 		return personReportAssess;
 	}
