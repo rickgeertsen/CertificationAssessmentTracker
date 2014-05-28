@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd" >
+<log4j:configuration>
+	<appender name="stdout" class="org.apache.log4j.ConsoleAppender">
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%d{ABSOLUTE} %5p %c{1}:%L - %m%n" />
+		</layout>
+	</appender>
+
+	<appender name="FileApp" class="org.apache.log4j.rolling.RollingFileAppender">
+		<rollingPolicy class="org.apache.log4j.rolling.TimeBasedRollingPolicy">
+			<param name="FileNamePattern" value="../dps-work/logs/juvenile-batch.%d.log" />
+			<param name="ActiveFileName" value="../dps-work/logs/juvenile-batch.log" />
+		</rollingPolicy>
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%d{ISO8601} %5p %c{1}:%L - %m%n" />
+		</layout>
+	</appender>
+
+	<appender class="org.apache.log4j.AsyncAppender" name="AsyncAppender">
+		<param name="BufferSize" value="500" />
+		<appender-ref ref="FileApp" />
+	</appender>
+
+	<logger name="org.springframework.ws.client.MessageTracing">
+		<level value="TRACE" />
+	</logger>
+	<logger name="org.springframework.ws.server.MessageTracing">
+		<level value="TRACE" />
+	</logger>
+	<logger name="org.hibernate">
+		<level value="error" />
+	</logger>
+
+	<logger name="gov">
+		<level value="info" />
+	</logger>
+	<logger name="com">
+		<level value="error" />
+	</logger>
+	<logger name="javax">
+		<level value="error" />
+	</logger>
+	<logger name="org">
+		<level value="error" />
+	</logger>
+	<logger name="weblogic">
+		<level value="error" />
+	</logger>
+	<logger name="net">
+		<level value="error" />
+	</logger>
+
+	<root>
+		<level value="info" />
+		<appender-ref ref="stdout" />
+		<appender-ref ref="AsyncAppender" />
+	</root>
+</log4j:configuration>

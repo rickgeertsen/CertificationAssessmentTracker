@@ -1,4 +1,6 @@
 <!DOCTYPE html>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+
 <html lang="en">
   
   <head>
@@ -43,7 +45,7 @@
       <div class="hero-unit">
         <div>
           <h1>
-            Welcome to Certification and Assessment Tracker and Reporter!
+            Welcome to the Certification and Assessment Tracker and Reporter <sec:authentication property="name" />!
           </h1>
           <br>
           <p>
@@ -53,6 +55,17 @@
         <a class="btn btn-primary" href="addPerson.html">
           Add Person »
         </a>
+        
+        <sec:authorize ifAnyGranted="ROLE_ADMIN">
+        <a class="btn btn-primary" href="editPerson.html">
+          Edit Person »
+        </a>
+        </sec:authorize>
+        
+          <a class="btn btn-warning" href="j_spring_security_logout">
+        	Logout >>
+        </a>
+        
         <br> <br>
         <p>
             Next enter all Certifications and Assessments Passed.
@@ -79,6 +92,7 @@
          <a class="btn btn-primary" href="getPersonAssessmentReports.html">
          Person Assessment Report »
         </a>
+        
       </div>
       <div>
       </div>
